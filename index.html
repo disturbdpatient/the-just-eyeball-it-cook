@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Just-Eyeball-It Cook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #f5eded;
+      --warm-white: #fdf6f6;
+      --tan: #e8c8c8;
+      --brown: #8b2020;
+      --dark-brown: #5a0f0f;
+      --rust: #c0392b;
+      --olive: #7a8c5c;
+      --sage: #a8b89a;
+      --gold: #c9933a;
+      --ink: #2e0f0f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Lora', serif;
+      overflow-x: hidden;
+    }
+
+    /* ── TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.6;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background-color: var(--dark-brown);
+      padding: 70px 40px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(201,147,58,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 30%, rgba(184,92,42,0.12) 0%, transparent 55%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--rust);
+      color: var(--warm-white);
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 20px;
+      border-radius: 2px;
+      margin-bottom: 28px;
+      position: relative;
+      transform: rotate(-1.5deg);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.05;
+      position: relative;
+      letter-spacing: -0.01em;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--sage);
+      margin-top: 18px;
+      position: relative;
+    }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 36px auto 0;
+      max-width: 340px;
+      position: relative;
+    }
+
+    .hero-divider::before,
+    .hero-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201,147,58,0.4);
+    }
+
+    .hero-divider span {
+      color: var(--gold);
+      font-size: 1.4rem;
+    }
+
+    /* ── INTRO STRIP ── */
+    .intro-strip {
+      background: var(--tan);
+      padding: 40px 32px;
+      text-align: center;
+      border-top: 3px solid var(--brown);
+      border-bottom: 3px solid var(--brown);
+    }
+
+    .intro-strip p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--dark-brown);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .intro-strip p strong {
+      font-style: normal;
+      color: var(--rust);
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      text-align: center;
+      padding: 60px 20px 10px;
+    }
+
+    .section-label h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      color: var(--dark-brown);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-label h2::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 3px;
+      background: var(--rust);
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .section-label .sub {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--olive);
+      margin-top: 8px;
+    }
+
+    /* ── RECIPE GRID ── */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 36px;
+      max-width: 1100px;
+      margin: 40px auto 80px;
+      padding: 0 32px;
+    }
+
+    /* ── RECIPE CARD ── */
+    .recipe-card {
+      background: var(--warm-white);
+      border: 1.5px solid var(--tan);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 4px 6px 20px rgba(61,42,20,0.10);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-5px) rotate(0.3deg);
+      box-shadow: 8px 14px 32px rgba(61,42,20,0.16);
+    }
+
+    .card-color-tab {
+      height: 6px;
+      width: 100%;
+    }
+
+    .card-img-placeholder {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: linear-gradient(135deg, var(--tan) 0%, var(--cream) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.3) 10px,
+        rgba(255,255,255,0.3) 11px
+      );
+    }
+
+    .card-body {
+      padding: 24px 26px 28px;
+    }
+
+    .card-tag {
+      font-family: 'Caveat', cursive;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--rust);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--dark-brown);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .card-desc {
+      font-family: 'Lora', serif;
+      font-size: 0.92rem;
+      color: #6b5740;
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+
+    .card-meta {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      border-top: 1px dashed var(--tan);
+      padding-top: 16px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .meta-label {
+      font-family: 'Caveat', cursive;
+      font-size: 0.8rem;
+      color: var(--olive);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .meta-value {
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--brown);
+    }
+
+    /* ── HANDWRITTEN CALLOUT ── */
+    .callout {
+      background: var(--dark-brown);
+      color: var(--cream);
+      padding: 60px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .callout::before {
+      content: '"';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 18rem;
+      color: rgba(201,147,58,0.07);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .callout blockquote {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      color: var(--cream);
+      line-height: 1.5;
+      max-width: 700px;
+      margin: 0 auto 16px;
+      position: relative;
+    }
+
+    .callout cite {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--gold);
+    }
+
+    /* ── TIP BOX ── */
+    .tips-section {
+      max-width: 900px;
+      margin: 0 auto 80px;
+      padding: 0 32px;
+    }
+
+    .tips-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-style: italic;
+      color: var(--dark-brown);
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .tip-box {
+      background: var(--warm-white);
+      border-left: 4px solid var(--rust);
+      padding: 20px 22px;
+      border-radius: 0 4px 4px 0;
+      box-shadow: 2px 4px 14px rgba(61,42,20,0.07);
+    }
+
+    .tip-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .tip-box strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--dark-brown);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .tip-box p {
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      color: #6b5740;
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--tan);
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    footer .foot-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    footer p {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--sage);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1, .hero-badge, .hero-sub {
+      animation: fadeUp 0.9s ease both;
+    }
+    .hero-badge { animation-delay: 0.1s; }
+    .hero h1    { animation-delay: 0.3s; }
+    .hero-sub   { animation-delay: 0.55s; }
+    .hero-divider { animation: fadeUp 0.9s 0.7s ease both; }
+
+    .recipe-card {
+      animation: fadeUp 0.7s ease both;
+    }
+    .recipe-card:nth-child(1) { animation-delay: 0.05s; }
+    .recipe-card:nth-child(2) { animation-delay: 0.15s; }
+    .recipe-card:nth-child(3) { animation-delay: 0.25s; }
+    .recipe-card:nth-child(4) { animation-delay: 0.35s; }
+    .recipe-card:nth-child(5) { animation-delay: 0.45s; }
+    .recipe-card:nth-child(6) { animation-delay: 0.55s; }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-badge">Home Cooking · No Exact Measurements Required</div>
+    <h1>The <span>Just-Eyeball-It</span><br>Cook</h1>
+    <p class="hero-sub">real food, real kitchens, real "that looks about right" energy</p>
+    <div class="hero-divider">
+      <span>✦</span>
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <div class="intro-strip">
+    <p>
+      No kitchen scale? No problem. These recipes are built for people who cook by feel —
+      <strong>a splash of this, a handful of that</strong>, and a pinch of "I'll figure it out."
+      Every dish here comes with guidance, not rules.
+    </p>
+  </div>
+
+  <!-- RECIPES SECTION -->
+  <div class="section-label">
+    <h2>This Week's Reciperiments</h2>
+    <p class="sub">swap, skip, double — whatever feels right</p>
+  </div>
+
+  <div class="recipe-grid">
+
+    <!-- Card 1 -->
+    <article class="recipe-card">
+      <div class="card-color-tab" style="background: var(--rust);"></div>
+      <div class="card-img-placeholder">🍝</div>
+      <div class="card-body">
+        <div class="card-tag">Weeknight Dinner</div>
+        <h2 class="card-title">Garlic Butter Pasta with Whatever's in the Fridge</h2>
+        <p class="card-desc">
+          Melt a generous knob of butter, sauté as much garlic as you dare, and toss with pasta,
+          parmesan, and any leftover veg that needs using up. It's always good.
+        </p>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Time</span>
+            <span class="meta-value">~20 min</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Serves</span>
+            <span class="meta-value">2–4 ish</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Difficulty</span>
+            <span class="meta-value">Very Easy</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 2 -->
+    <article class="recipe-card">
+      <div class="card-color-tab" style="background: var(--olive);"></div>
+      <div class="card-img-placeholder">🥣</div>
+      <div class="card-body">
+        <div class="card-tag">Breakfast</div>
+        <h2 class="card-title">Big Pan Shakshuka</h2>
+        <p class="card-desc">
+          Sauté onion and peppers until soft. Pour in canned tomatoes, add cumin and paprika
+          until it smells like a dream, then crack in some eggs and let them set. Serve with
+          crusty bread — lots of it.
+        </p>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Time</span>
+            <span class="meta-value">~30 min</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Serves</span>
+            <span class="meta-value">3–5 ish</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Difficulty</span>
+            <span class="meta-value">Easy</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 3 -->
+    <article class="recipe-card">
+      <div class="card-color-tab" style="background: var(--gold);"></div>
+      <div class="card-img-placeholder">🍗</div>
+      <div class="card-body">
+        <div class="card-tag">Sunday Roast</div>
+        <h2 class="card-title">Fall-Off-The-Bone Roast Chicken</h2>
+        <p class="card-desc">
+          Rub a whole chicken with butter, garlic, herbs, salt and pepper. Stuff the cavity
+          with half a lemon and whatever herbs you have. Roast at 400°F until the juices run clear
+          — roughly an hour. Rest before carving. Impossible to mess up.
+        </p>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Time</span>
+            <span class="meta-value">~1.5 hrs</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Serves</span>
+            <span class="meta-value">4–6</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Difficulty</span>
+            <span class="meta-value">Easy</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 4 -->
+    <article class="recipe-card">
+      <div class="card-color-tab" style="background: #c4763a;"></div>
+      <div class="card-img-placeholder">🍲</div>
+      <div class="card-body">
+        <div class="card-tag">Cozy Soup</div>
+        <h2 class="card-title">Thick & Hearty Lentil Soup</h2>
+        <p class="card-desc">
+          Sauté onion, carrot, celery. Add a good scoop of red lentils, canned tomatoes,
+          broth, cumin, and a squeeze of lemon at the end. Simmer until thick.
+          Season generously and serve with warm bread.
+        </p>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Time</span>
+            <span class="meta-value">~40 min</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Serves</span>
+            <span class="meta-value">4–6</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Difficulty</span>
+            <span class="meta-value">Easy</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 5 -->
+    <article class="recipe-card">
+      <div class="card-color-tab" style="background: var(--brown);"></div>
+      <div class="card-img-placeholder">🥗</div>
+      <div class="card-body">
+        <div class="card-tag">Light &amp; Fresh</div>
+        <h2 class="card-title">Grain Bowl with Lemony Tahini Drizzle</h2>
+        <p class="card-desc">
+          Cook some grains — farro, quinoa, whatever. Pile on roasted veg, chickpeas, maybe some
+          feta. Whisk together tahini, lemon juice, garlic, and enough water to make it pourable.
+          Drizzle recklessly.
+        </p>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Time</span>
+            <span class="meta-value">~35 min</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Serves</span>
+            <span class="meta-value">2–3</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Difficulty</span>
+            <span class="meta-value">Easy</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Card 6 -->
+    <article class="recipe-card">
+      <div class="card-color-tab" style="background: var(--sage);"></div>
+      <div class="card-img-placeholder">🍪</div>
+      <div class="card-body">
+        <div class="card-tag">Something Sweet</div>
+        <h2 class="card-title">Brown Butter Chocolate Chip Cookies</h2>
+        <p class="card-desc">
+          Brown your butter until nutty. Mix in sugar, eggs, vanilla, flour, salt, baking soda.
+          Fold in a big pile of chocolate chips. Chill if you're patient. Bake until golden at the
+          edges but soft in the middle. Don't overbake.
+        </p>
+        <div class="card-meta">
+          <div class="meta-item">
+            <span class="meta-label">Time</span>
+            <span class="meta-value">~1 hr</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Makes</span>
+            <span class="meta-value">~18 cookies</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Difficulty</span>
+            <span class="meta-value">Easy–Med</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </div><!-- /recipe-grid -->
+
+  <!-- CALLOUT -->
+  <div class="callout">
+    <blockquote>
+      "A recipe is a suggestion, not a law. Add more cheese. Taste as you go.
+      Cook until it smells right. Trust your gut."
+    </blockquote>
+    <cite>— The Just-Eyeball-It Philosophy</cite>
+  </div>
+
+  <!-- TIPS SECTION -->
+  <div class="section-label">
+    <h2>Eyeballing Tips</h2>
+    <p class="sub">for when you've lost the measuring cups</p>
+  </div>
+
+  <section class="tips-section">
+    <div class="tips-grid">
+      <div class="tip-box">
+        <span class="tip-icon">🤲</span>
+        <strong>A "handful" is roughly ½ cup</strong>
+        <p>For pasta, grains, or greens, one cupped handful is about a half cup. Two hands is a cup.</p>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">🫙</span>
+        <strong>A "glug" of oil is ~2 tbsp</strong>
+        <p>A quick pour around the pan — not a tiny dribble, not a flood. You'll get a feel for it fast.</p>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">🧂</span>
+        <strong>Salt generously, taste often</strong>
+        <p>Season in layers: pasta water, during cooking, and at the end. Taste before you add more.</p>
+      </div>
+      <div class="tip-box">
+        <span class="tip-icon">🔥</span>
+        <strong>Medium-high is your best friend</strong>
+        <p>Most sautéeing happens at medium-high. If nothing's sizzling, turn it up. If it's smoking, turn it down.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-title">The Just-Eyeball-It Cook</div>
+    <p>Cooking without the fuss. Eating without the guilt. Living without the measuring cups.</p>
+  </footer>
+
+</body>
+</html>
