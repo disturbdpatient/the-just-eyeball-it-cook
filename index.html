@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Just-Eyeball-It-Cook</title>
+  <title>The Just Eyeball It Cook</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lora:ital@0;1&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
@@ -11,20 +11,22 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream: #faf6f0;
-      --warm-white: #fff9f2;
-      --ink: #1c1712;
-      --bark: #5c3d1e;
-      --rust: #c0522a;
-      --sage: #7a9a72;
-      --muted: #8a7d6e;
-      --border: #e0d5c5;
-      --card-bg: #ffffff;
+      --sky:        #e8f4fd;
+      --sky-mid:    #cce6f8;
+      --sky-deep:   #a8d4f0;
+      --ocean:      #2a7ab8;
+      --ocean-dark: #1a5a8a;
+      --navy:       #0e2f4a;
+      --white:      #ffffff;
+      --fog:        #f4f9fd;
+      --muted:      #5a7d99;
+      --border:     #c5dff0;
+      --accent:     #e07b3a;
     }
 
     body {
-      background: var(--cream);
-      color: var(--ink);
+      background: var(--fog);
+      color: var(--navy);
       font-family: 'DM Sans', sans-serif;
       font-size: 16px;
       line-height: 1.6;
@@ -32,7 +34,7 @@
 
     /* ── HEADER ── */
     header {
-      background: var(--warm-white);
+      background: var(--white);
       border-bottom: 2px solid var(--border);
       padding: 0 2rem;
     }
@@ -48,9 +50,9 @@
 
     .site-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
       font-weight: 700;
-      color: var(--bark);
+      color: var(--ocean-dark);
       line-height: 1.1;
       text-decoration: none;
     }
@@ -65,101 +67,92 @@
       letter-spacing: 0.04em;
     }
 
-    nav {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
+    nav { display: flex; gap: 2rem; }
     nav a {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--muted);
       text-decoration: none;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
       transition: color 0.2s;
     }
-
-    nav a:hover { color: var(--rust); }
+    nav a:hover { color: var(--ocean); }
 
     /* ── HERO / ABOUT STRIP ── */
     .about-strip {
-      background: var(--bark);
-      color: var(--cream);
-      padding: 3.5rem 2rem;
+      background: linear-gradient(135deg, var(--ocean-dark) 0%, var(--ocean) 60%, #3a9ad4 100%);
+      padding: 4rem 2rem;
     }
 
     .about-inner {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 2.5rem;
+      grid-template-columns: 1fr 200px;
+      gap: 3rem;
       align-items: center;
-    }
-
-    /* HEADSHOT PLACEHOLDER */
-    .headshot-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .headshot {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 4px solid var(--rust);
-      object-fit: cover;
-      display: block;
-    }
-
-    /* If you don't have a photo yet, the placeholder shows instead */
-    .headshot-placeholder {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      border: 4px dashed rgba(255,255,255,0.35);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      color: rgba(255,255,255,0.5);
-      font-size: 0.75rem;
-      text-align: center;
-      cursor: pointer;
-      background: rgba(255,255,255,0.06);
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .headshot-placeholder:hover {
-      border-color: var(--rust);
-      background: rgba(255,255,255,0.1);
-    }
-
-    .headshot-placeholder svg {
-      width: 36px;
-      height: 36px;
-      opacity: 0.5;
     }
 
     .about-text h2 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
       font-weight: 700;
       color: #fff;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.2;
     }
 
     .about-text p {
       font-family: 'Lora', serif;
       font-size: 1.05rem;
-      line-height: 1.75;
-      color: rgba(255,255,255,0.82);
-      max-width: 580px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.85);
+      max-width: 520px;
+    }
+
+    .headshot-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .headshot {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,0.7);
+      object-fit: cover;
+      display: block;
+    }
+
+    .headshot-placeholder {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 3px dashed rgba(255,255,255,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.75rem;
+      text-align: center;
+      background: rgba(255,255,255,0.08);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .headshot-placeholder:hover {
+      border-color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .headshot-placeholder svg {
+      width: 38px;
+      height: 38px;
+      opacity: 0.55;
     }
 
     /* ── MAIN LAYOUT ── */
@@ -168,18 +161,18 @@
       margin: 0 auto;
       padding: 3rem 2rem;
       display: grid;
-      grid-template-columns: 1fr 300px;
+      grid-template-columns: 1fr 290px;
       gap: 3rem;
       align-items: start;
     }
 
-    /* ── SECTION HEADINGS ── */
+    /* ── SECTION LABEL ── */
     .section-label {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--rust);
+      letter-spacing: 0.14em;
+      color: var(--ocean);
       margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
@@ -193,17 +186,17 @@
       background: var(--border);
     }
 
-    /* ── RECIPE CARDS GRID ── */
+    /* ── RECIPE GRID ── */
     .recipe-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.4rem;
     }
 
     .recipe-card {
-      background: var(--card-bg);
+      background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
       text-decoration: none;
       color: inherit;
@@ -213,148 +206,143 @@
     }
 
     .recipe-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(92,61,30,0.12);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(42,122,184,0.15);
+    }
+
+    .card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--sky);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
     }
 
     .card-img {
       width: 100%;
       aspect-ratio: 4/3;
       object-fit: cover;
-      background: var(--border);
       display: block;
     }
 
-    /* placeholder for cards without images */
-    .card-img-placeholder {
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: #f0e8da;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--muted);
-      font-size: 2rem;
-    }
-
     .card-body {
-      padding: 1rem 1.1rem 1.2rem;
+      padding: 0.9rem 1.1rem 1.1rem;
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.35rem;
     }
 
     .card-tag {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       font-weight: 500;
-      color: var(--sage);
+      color: var(--ocean);
     }
 
     .card-title {
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       line-height: 1.3;
-      color: var(--ink);
+      color: var(--navy);
     }
 
     .card-meta {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--muted);
       margin-top: auto;
-      padding-top: 0.5rem;
+      padding-top: 0.45rem;
     }
 
     /* ── SIDEBAR ── */
     .sidebar {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 1.75rem;
     }
 
     .sidebar-card {
-      background: var(--card-bg);
+      background: var(--white);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 1.4rem;
     }
 
     .sidebar-card h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
-      color: var(--bark);
-      margin-bottom: 0.9rem;
+      color: var(--ocean-dark);
+      margin-bottom: 0.85rem;
     }
 
     .sidebar-card p {
       font-family: 'Lora', serif;
       font-style: italic;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       color: var(--muted);
-      line-height: 1.65;
+      line-height: 1.7;
     }
 
     .philosophy-quote {
-      border-left: 3px solid var(--rust);
+      border-left: 3px solid var(--ocean);
       padding-left: 1rem;
       font-family: 'Lora', serif;
       font-style: italic;
-      font-size: 1rem;
-      color: var(--bark);
-      line-height: 1.7;
+      font-size: 0.97rem;
+      color: var(--ocean-dark);
+      line-height: 1.75;
     }
 
     .tag-cloud {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.45rem;
     }
 
     .tag {
-      font-size: 0.78rem;
-      background: var(--cream);
-      border: 1px solid var(--border);
+      font-size: 0.76rem;
+      background: var(--sky);
+      border: 1px solid var(--sky-deep);
       border-radius: 20px;
-      padding: 0.3rem 0.8rem;
-      color: var(--muted);
+      padding: 0.28rem 0.75rem;
+      color: var(--ocean-dark);
       text-decoration: none;
-      transition: background 0.2s, color 0.2s;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
     }
 
     .tag:hover {
-      background: var(--rust);
+      background: var(--ocean);
       color: #fff;
-      border-color: var(--rust);
+      border-color: var(--ocean);
     }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--ink);
-      color: rgba(255,255,255,0.5);
+      background: var(--navy);
+      color: rgba(255,255,255,0.45);
       text-align: center;
       padding: 2rem;
-      font-size: 0.85rem;
-      margin-top: 2rem;
+      font-size: 0.83rem;
+      margin-top: 1rem;
     }
 
-    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
-    footer a:hover { color: var(--rust); }
+    footer a { color: rgba(255,255,255,0.65); text-decoration: none; }
+    footer a:hover { color: var(--sky-deep); }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
+    @media (max-width: 780px) {
       .about-inner {
         grid-template-columns: 1fr;
         text-align: center;
       }
-      .headshot-wrap { align-items: center; margin: 0 auto; }
       .about-text p { margin: 0 auto; }
-      .main-wrap {
-        grid-template-columns: 1fr;
-      }
+      .headshot-wrap { margin: 0 auto; order: -1; }
+      .main-wrap { grid-template-columns: 1fr; }
       nav { gap: 1.2rem; }
     }
   </style>
@@ -376,9 +364,20 @@
     </div>
   </header>
 
-  <!-- ABOUT STRIP WITH HEADSHOT -->
+  <!-- ABOUT STRIP: text left, headshot right -->
   <section class="about-strip">
     <div class="about-inner">
+
+      <div class="about-text">
+        <h2>Hi, I'm [Your Name]!</h2>
+        <p>
+          Welcome to my little corner of the internet, where recipes are measured in handfuls,
+          "a drizzle," and "until it looks right." I cook real food for real life — no fancy
+          equipment, no hour-long prep lists, just flavour-first cooking and the confidence to
+          trust your gut (and your nose).
+        </p>
+      </div>
+
       <div class="headshot-wrap">
         <!--
           TO ADD YOUR HEADSHOT:
@@ -394,15 +393,6 @@
         </div>
       </div>
 
-      <div class="about-text">
-        <h2>Hi, I'm [Your Name]!</h2>
-        <p>
-          Welcome to my little corner of the internet, where recipes are measured in handfuls,
-          "a drizzle," and "until it looks right." I cook real food for real life — no fancy
-          equipment, no hour-long prep lists, just flavour-first cooking and the confidence to
-          trust your gut (and your nose).
-        </p>
-      </div>
     </div>
   </section>
 
@@ -414,7 +404,6 @@
       <p class="section-label">Latest Recipes</p>
       <div class="recipe-grid">
 
-        <!-- RECIPE CARD — duplicate & swap the href for each new recipe page -->
         <a href="recipe-template.html" class="recipe-card">
           <div class="card-img-placeholder">🍝</div>
           <div class="card-body">
