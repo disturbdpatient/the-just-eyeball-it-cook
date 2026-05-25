@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CHANGE THIS: put the recipe name here -->
+  <title>Brown Butter Pasta with Whatever's in the Fridge · The Just Eyeball It Cook</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Lora:ital@0;1&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf6f0;
+      --warm-white: #fff9f2;
+      --ink: #1c1712;
+      --bark: #5c3d1e;
+      --rust: #c0522a;
+      --sage: #7a9a72;
+      --muted: #8a7d6e;
+      --border: #e0d5c5;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--warm-white);
+      border-bottom: 2px solid var(--border);
+      padding: 0 2rem;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+    }
+
+    .site-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 700;
+      color: var(--bark);
+      line-height: 1.1;
+      text-decoration: none;
+    }
+
+    .site-title span {
+      display: block;
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.55em;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--rust); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      max-width: 800px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--rust); }
+    .breadcrumb span { margin: 0 0.4rem; }
+
+    /* ── RECIPE HERO ── */
+    .recipe-hero {
+      max-width: 800px;
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+    }
+
+    .recipe-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      color: var(--sage);
+      margin-bottom: 0.6rem;
+    }
+
+    .recipe-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--bark);
+      margin-bottom: 1rem;
+    }
+
+    .recipe-intro {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 640px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── META STRIP ── */
+    .meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      padding: 1.2rem 1.5rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .meta-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--bark);
+    }
+
+    /* ── HERO IMAGE ── */
+    .recipe-image-wrap {
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      padding: 0 2rem;
+    }
+
+    .recipe-image {
+      width: 100%;
+      border-radius: 12px;
+      display: block;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+
+    /* placeholder when there's no image yet */
+    .recipe-image-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      background: #f0e8da;
+      border: 2px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .recipe-image-placeholder span { font-size: 3rem; }
+
+    /* ── MAIN RECIPE LAYOUT ── */
+    .recipe-body {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── INGREDIENTS ── */
+    .ingredients-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem;
+      position: sticky;
+      top: 1.5rem;
+    }
+
+    .ingredients-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--bark);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .ingredients-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .ingredients-list li {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      color: var(--ink);
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .ingredients-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--rust);
+      font-weight: 700;
+    }
+
+    .ingredient-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* section divider inside ingredients */
+    .ingredients-list .section-head {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--sage);
+      font-weight: 500;
+      padding-left: 0;
+      margin-top: 0.5rem;
+    }
+
+    .ingredients-list .section-head::before { display: none; }
+
+    /* ── INSTRUCTIONS ── */
+    .instructions h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--bark);
+      margin-bottom: 1.5rem;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      align-items: start;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      background: var(--bark);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-content {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--ink);
+    }
+
+    .step-content strong {
+      font-weight: 700;
+      color: var(--bark);
+    }
+
+    /* ── EYEBALL IT TIP ── */
+    .eyeball-tip {
+      background: #fef5ee;
+      border-left: 3px solid var(--rust);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+    }
+
+    .eyeball-tip .tip-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      color: var(--rust);
+      margin-bottom: 0.3rem;
+    }
+
+    .eyeball-tip p {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--bark);
+      line-height: 1.65;
+    }
+
+    /* ── NOTES ── */
+    .recipe-notes {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .recipe-notes h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--bark);
+      margin-bottom: 0.8rem;
+    }
+
+    .recipe-notes p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.85rem;
+    }
+
+    footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    footer a:hover { color: var(--rust); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      .recipe-body {
+        grid-template-columns: 1fr;
+      }
+      .ingredients-card { position: static; }
+      .meta-strip { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="site-title">
+        The Just Eyeball It Cook
+        <span>recipes for people who don't measure</span>
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="#">Recipes</a>
+        <a href="#">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <p class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>›</span>
+    <!-- CHANGE THIS: swap "Pasta" for the right category -->
+    <a href="#">Pasta</a>
+    <span>›</span>
+    Brown Butter Pasta with Whatever's in the Fridge
+  </p>
+
+  <!-- RECIPE HERO TEXT -->
+  <div class="recipe-hero">
+    <!-- CHANGE THIS: swap the category tag -->
+    <p class="recipe-category">Pasta · Quick Weeknight</p>
+
+    <!-- CHANGE THIS: recipe name -->
+    <h1 class="recipe-title">Brown Butter Pasta with Whatever's in the Fridge</h1>
+
+    <!-- CHANGE THIS: 2-3 sentence intro/hook -->
+    <p class="recipe-intro">
+      This is the recipe I make when I haven't planned anything and I'm already hungry.
+      Brown butter is basically a cheat code — it makes everything taste like you tried.
+      The rest is just vibes and whatever vegetables look sad in the crisper drawer.
+    </p>
+
+    <!-- META STRIP -->
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="meta-label">Time</span>
+        <!-- CHANGE THIS -->
+        <span class="meta-value">~30 min</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Serves</span>
+        <!-- CHANGE THIS -->
+        <span class="meta-value">2 (or 1 if it's that kind of night)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Difficulty</span>
+        <!-- CHANGE THIS -->
+        <span class="meta-value">Very easy</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Vibe</span>
+        <!-- CHANGE THIS -->
+        <span class="meta-value">Comfort, no-fuss</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECIPE IMAGE -->
+  <div class="recipe-image-wrap">
+    <!--
+      TO ADD A PHOTO:
+      Replace the .recipe-image-placeholder div with:
+      <img src="your-recipe-photo.jpg" alt="Brown butter pasta in a pan" class="recipe-image" />
+    -->
+    <div class="recipe-image-placeholder">
+      <span>🍝</span>
+      add a photo of the finished dish here
+    </div>
+  </div>
+
+  <!-- RECIPE BODY: INGREDIENTS + STEPS -->
+  <div class="recipe-body">
+
+    <!-- INGREDIENTS (sticky sidebar) -->
+    <div class="ingredients-card">
+      <h2>Ingredients</h2>
+      <!-- CHANGE THIS: edit/add/remove list items as needed -->
+      <ul class="ingredients-list">
+        <li>pasta — a big handful per person <span class="ingredient-note">(any shape)</span></li>
+        <li>butter — a generous knob <span class="ingredient-note">(more than you think)</span></li>
+        <li>garlic — a few cloves, smashed or sliced</li>
+        <li>parmesan — a blizzard of it</li>
+        <li>salt + black pepper</li>
+
+        <li class="section-head">The "whatever" part</li>
+        <li>a couple handfuls of spinach or kale</li>
+        <li>half a lemon, for squeezing</li>
+        <li>chilli flakes <span class="ingredient-note">(optional but recommended)</span></li>
+        <li>leftover roasted veg if you have any</li>
+      </ul>
+    </div>
+
+    <!-- INSTRUCTIONS -->
+    <div class="instructions">
+      <h2>How to make it</h2>
+
+      <!-- STEP — duplicate this block for each step -->
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          Get a big pot of water going. Salt it properly — it should taste like the sea,
+          not tears. Cook your pasta until it's just shy of done, then scoop out a mugful
+          of the starchy water before you drain it. <strong>Don't skip this.</strong>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          While the pasta's going, melt your butter in a wide pan over medium heat.
+          Keep watching it — it'll foam, then go quiet, then start to smell nutty and
+          turn golden-brown. That's the moment. Pull it off the heat for a second.
+        </div>
+      </div>
+
+      <!-- EYEBALL IT TIP — use these for the "trust your senses" moments -->
+      <div class="eyeball-tip">
+        <p class="tip-label">👁 Eyeball it</p>
+        <p>You'll know the butter is ready when it smells like toffee and the milk solids
+        at the bottom have gone amber. Don't go golden — go brown. That's where the flavour lives.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          Drop in the garlic and let it sizzle for a minute or so. If you've got any vegetables
+          that need cooking (not just wilting), add them here. A bit of chilli too if you're using it.
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          Add the drained pasta straight into the pan. Splash in a good pour of that pasta water —
+          it'll hiss and steam and the whole thing will emulsify into a silky sauce.
+          Toss everything together. Add more water if it looks tight.
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          Off the heat: wilt in any greens, squeeze in the lemon, and snow parmesan over the top.
+          Taste. Season. Eat immediately, directly from the pan if necessary.
+        </div>
+      </div>
+
+      <!-- NOTES SECTION -->
+      <div class="recipe-notes">
+        <h3>Notes & swaps</h3>
+        <p>
+          No parmesan? Pecorino is great. Nutritional yeast if you want it vegan.
+          No lemon? A tiny splash of white wine vinegar at the end does the same job.
+          Add a fried egg on top if you want to make it feel more substantial.
+          Leftovers reheat okay with a tiny splash of water in a pan — not the microwave,
+          the microwave makes pasta sad.
+        </p>
+      </div>
+
+    </div><!-- end .instructions -->
+  </div><!-- end .recipe-body -->
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 The Just Eyeball It Cook &nbsp;·&nbsp; Made with love and zero measuring cups</p>
+  </footer>
+
+</body>
+</html>
